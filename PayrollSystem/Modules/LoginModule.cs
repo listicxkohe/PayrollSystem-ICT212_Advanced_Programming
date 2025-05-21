@@ -20,17 +20,19 @@ namespace PayrollSystem.Modules
         {
             Console.Clear();
 
-            // ASCII BANNER with properly escaped backslashes
+            // Banner Art for SmartHR Console
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("+--------------------------------------------------+");
-            Console.WriteLine("|    _____                 _                      |");
-            Console.WriteLine("|   | ____|_ __ ___  _ __| | ___  _   _  ___ ___  |");
-            Console.WriteLine("|   |  _| | '_ ` _ \\| '__| |/ _ \\| | | |/ __/ _ \\ |");
-            Console.WriteLine("|   | |___| | | | | | |  | | (_) | |_| | (_|  __/ |");
-            Console.WriteLine("|   |_____|_| |_| |_|_|  |_|\\___/ \\__,_|\\___\\___| |");
-            Console.WriteLine("|                                                |");
-            Console.WriteLine("|              EMPLOYEE SYSTEM LOGIN             |");
-            Console.WriteLine("+--------------------------------------------------+");
+            Console.WriteLine("+---------------------------------------------+");
+            Console.WriteLine("|  _____                      _   _   _       |");
+            Console.WriteLine("| /  ___|                    | | | | | |      |");
+            Console.WriteLine("| \\ `--. _ __ ___   __ _ _ __| |_| |_| |_ __  |");
+            Console.WriteLine("|  `--. \\ '_ ` _ \\ / _` | '__| __|  _  | '__| |");
+            Console.WriteLine("| /\\__/ / | | | | | (_| | |  | |_| | | | |    |");
+            Console.WriteLine("| \\____/|_| |_| |_|\\__,_|_|   \\__\\_| |_|_|    |");
+            Console.WriteLine("|                                             |");
+            Console.WriteLine("|             SMARTHR CONSOLE LOGIN           |");
+            Console.WriteLine("+---------------------------------------------+");
+
             Console.ResetColor();
 
             while (true)
@@ -106,4 +108,3 @@ namespace PayrollSystem.Modules
         }
     }
 }
- 
