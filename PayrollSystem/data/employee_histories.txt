@@ -1,0 +1,2 @@
+Alice|Promotion|Promoted to HR Manager|2025-05-15
+Bob|Salary Update|Increased to 60000|2025-05-18
