@@ -1,4 +1,15 @@
-# Employee Payroll Management System
+# SmartHR Console
+
+```
+  _____                      _   _   _           
+ /  ___|                    | | | | | |          
+ \ `--. _ __ ___   __ _ _ __| |_| |_| |_ __      
+  `--. \ '_ ` _ \ / _` | '__| __|  _  | '__|     
+ /\__/ / | | | | | (_| | |  | |_| | | | |        
+ \____/|_| |_| |_|\__,_|_|   \__\_| |_|_|        
+
+          SMARTHR CONSOLE LOGIN          
+```
 
 **Subject:** ICT212 – Advanced Programming
 **Project:** Console-Based Payroll and HR System
@@ -7,7 +18,7 @@
 
 ## Overview
 
-The **Employee Payroll Management System** is a C# console application designed for managing employee records, attendance, payroll calculations, leave requests, and administrative control. It is a menu-driven program that allows role-based access to different modules (Admin, HR, Employee), all operated via a clean, structured console interface.
+The **SmartHR Console** is a C# console application designed for managing employee records, attendance, payroll calculations, leave requests, and administrative control. It is a menu-driven program that allows role-based access to different modules (Admin, HR, Employee), all operated via a clean, structured console interface.
 
 This project was developed as part of the **ICT212 – Advanced Programming** assignment, with a focus on modular code design, data persistence, and user-friendly console UI formatting.
 
@@ -108,3 +119,6 @@ EmployeePayrollSystem/
 
 ---
 
+## License
+
+This project was developed for academic purposes. Reuse or distribution should include proper attribution.
