@@ -1,5 +1,7 @@
 ﻿// Program.cs
 using PayrollSystem.Core;
+using PayrollSystem.Services;
+using PayrollSystem.Modules;
 
 namespace PayrollSystem
 {
@@ -7,8 +9,15 @@ namespace PayrollSystem
     {
         static void Main(string[] args)
         {
-            PayrollApp app = new PayrollApp();
-            app.Start();
+            var fileHandler = new FileHandler();
+            var users = fileHandler.LoadUsers();
+            var employees = fileHandler.LoadEmployees();
+            var payroll = fileHandler.LoadPayrollRecords();
+
+            var loginModule = new LoginModule(users, fileHandler);
+
+            var app = new PayrollApp();
+            app.Run();
         }
     }
 }

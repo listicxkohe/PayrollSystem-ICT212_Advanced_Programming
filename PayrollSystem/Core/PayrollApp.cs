@@ -23,34 +23,37 @@ namespace PayrollSystem.Core
         private List<EmployeeHistory> EmployeeHistories;
 
         // This method starts the whole app
-        public void Start()
+        public void Run()
         {
             LoadData(); // Get data from files
 
             // Ask the user to log in (returns their role and username)
-            var login = new LoginModule(Users);
-            var result = login.LoginPrompt(); // returns a tuple (Role, Username)
-            string role = result.Role;
-            string username = result.Username;
+            var loginModule = new LoginModule(Users, _fileHandler);
+            var adminModule = new AdminModule(Users, Employees, EmployeeHistories);
+            var hrModule = new HRModule(Employees, LeaveRequests, EmployeeHistories, Attendance);
 
-            // Depending on what kind of user logged in, show them the correct menu
-            switch (role.ToLower())
+            while (true)
             {
-                case "admin":
-                    new AdminModule(Users, Employees).ShowMenu();
+                var (role, username) = loginModule.ShowLoginMenu();
+                if (role == "exit")
+                {
+                    Console.WriteLine("\nThank you for using the Payroll Management System. Goodbye!");
                     break;
+                }
 
-                case "hr":
-                    new HRModule(Employees, LeaveRequests, EmployeeHistories).ShowMenu();
-                    break;
-
-                case "employee":
-                    new EmployeeModule(username, Employees, LeaveRequests, Attendance, EmployeeHistories).ShowMenu();
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid role. Exiting...");
-                    break;
+                switch (role.ToLower())
+                {
+                    case "admin":
+                        adminModule.ShowMenu();
+                        break;
+                    case "hr":
+                        hrModule.ShowMenu();
+                        break;
+                    case "employee":
+                        var employeeModule = new EmployeeModule(username, loginModule.CurrentEmployeeId, Employees, LeaveRequests, Attendance, EmployeeHistories, _fileHandler);
+                        employeeModule.ShowMenu();
+                        break;
+                }
             }
 
             SaveData(); // Save everything back to files

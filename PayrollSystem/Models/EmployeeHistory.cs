@@ -11,14 +11,16 @@ namespace PayrollSystem.Models
         public string Action { get; set; }       // what happened (like "Promoted" or "Salary Updated")
         public string Details { get; set; }      // extra notes about the action
         public DateTime Date { get; set; }       // when it happened (this sets to today automatically)
+        public int EmployeeId { get; set; } // unique identifier for the employee
 
         // when we make a new history log, we give it the name, action, and some details
-        public EmployeeHistory(string employeeName, string action, string details)
+        public EmployeeHistory(string employeeName, string action, string details, int employeeId = -1)
         {
             EmployeeName = employeeName; // who
             Action = action;             // what happened
             Details = details;           // more info
             Date = DateTime.Now;         // set date to now
+            EmployeeId = employeeId;
         }
 
         // this makes the record show up in a nice way when we print it

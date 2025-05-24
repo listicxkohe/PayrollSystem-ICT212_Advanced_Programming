@@ -14,30 +14,27 @@ namespace PayrollSystem.Models
         public int DaysRequested { get; set; }      // how many days they want off
         public string Reason { get; set; }          // reason for asking leave
         public string Status { get; set; }          // is it Approved, Rejected or still Pending?
-        public DateTime RequestDate { get; set; }   // when was the request made
+        public string Date { get; set; }  // Format: "YYYY-MM-DD"
+        public int EmployeeId { get; set; } // unique identifier for the employee
 
         // this is called when someone makes a new leave request
-        public LeaveRequest(string employeeName, int daysRequested, string reason, string status)
+        public LeaveRequest(string employeeName, int daysRequested, string reason, string status, int employeeId = -1)
         {
-            LeaveId = GenerateLeaveId();         // give this request a unique ID
-            EmployeeName = employeeName;         // who made the request
-            DaysRequested = daysRequested;       // how long
-            Reason = reason;                     // why they need time off
-            Status = status;                     // default is usually "Pending"
-            RequestDate = DateTime.Now;          // set today's date automatically
-        }
-
-        // this just increases the ID number each time someone makes a request
-        private static int GenerateLeaveId()
-        {
-            lastLeaveId++; // increase the number
-            return lastLeaveId; // use it as the new ID
+            LeaveId = ++lastLeaveId;
+            EmployeeName = employeeName;
+            DaysRequested = daysRequested;
+            Reason = reason;
+            Status = status;
+            Date = DateTime.Now.ToString("yyyy-MM-dd");
+            EmployeeId = employeeId;
         }
 
         // this makes it easy to print a leave request in a nice readable format
         public override string ToString()
         {
-            return $"Leave ID: {LeaveId:D4} | Employee: {EmployeeName} | Days: {DaysRequested} | Reason: {Reason} | Status: {Status} | Requested on: {RequestDate:yyyy-MM-dd}";
+            return $"Leave ID: {LeaveId:D4} | {EmployeeName} - {DaysRequested} days - {Status}\n" +
+                   $"Reason: {Reason}\n" +
+                   $"Date: {Date}";
         }
     }
 }
