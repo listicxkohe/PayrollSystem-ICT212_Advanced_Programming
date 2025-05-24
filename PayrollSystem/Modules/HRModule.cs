@@ -34,7 +34,7 @@ namespace PayrollSystem.Modules
                 _employees.AddRange(loadedEmployees);
             }
         }
-
+        // // This method shows the main HR menu and lets them choose what to do
         public void ShowMenu()
         {
             while (true)
@@ -52,7 +52,8 @@ namespace PayrollSystem.Modules
                 Console.WriteLine("[4] Manage Leave Requests");
                 Console.WriteLine("[5] View Employee History");
                 Console.WriteLine("[6] View Payroll History");
-                Console.WriteLine("[7] Logout");
+                Console.WriteLine("[7] Analytics");
+                Console.WriteLine("[8] Logout");
                 Console.Write("\nSelect an option: ");
                 string choice = Console.ReadLine();
 
@@ -64,7 +65,8 @@ namespace PayrollSystem.Modules
                     case "4": ManageLeaveRequests(); break;
                     case "5": ViewEmployeeHistory(); break;
                     case "6": ViewPayrollHistory(); break;
-                    case "7":
+                    case "7": ShowAnalytics(); break;
+                    case "8":
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("\n[!] Logging out...");
                         Console.ResetColor();
@@ -79,14 +81,103 @@ namespace PayrollSystem.Modules
                 }
             }
         }
+        // This method shows the analytics menu and lets HR choose what to do
+        private void ShowAnalytics()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("+=============================================+");
+                Console.WriteLine("|                 ANALYTICS MENU              |");
+                Console.WriteLine("+=============================================+");
+                Console.ResetColor();
 
+                Console.WriteLine("[1] Generate Payroll Reports");
+                Console.WriteLine("[2] Track Salary Growth Trends");
+                Console.WriteLine("[3] Return to Main Menu");
+                Console.Write("\nSelect an option: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1": GeneratePayrollReports(); break;
+                    case "2": TrackSalaryGrowthTrends(); break;
+                    case "3": return;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\n[!] Invalid option. Press Enter to try again.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        break;
+                }
+            }
+        }
+
+        // This method manages leave requests, allowing HR to approve or reject them
+        private void GeneratePayrollReports()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("+=========== PAYROLL REPORTS ===========+");
+            Console.ResetColor();
+
+            // Hardcoded data for payroll reports
+            Console.WriteLine("\nDepartment-wise Salary Expenditure and Benefits Distribution:");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+            Console.WriteLine("| Department        | Total Salary ($) | Benefits ($)      |");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+            Console.WriteLine("| IT                | 120,000          | 15,000            |");
+            Console.WriteLine("| HR                | 80,000           | 10,000            |");
+            Console.WriteLine("| Finance           | 100,000          | 12,000            |");
+            Console.WriteLine("| Marketing         | 90,000           | 11,000            |");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+
+            Console.WriteLine("\nPress Enter to return.");
+            Console.ReadLine();
+        }
+
+        // This method tracks salary growth trends and displays them
+        private void TrackSalaryGrowthTrends()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("+=========== SALARY GROWTH TRENDS ===========+");
+            Console.ResetColor();
+
+            // Hardcoded data for salary growth trends
+            Console.WriteLine("\nEmployee Salary Growth Trends:");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+            Console.WriteLine("| Employee Name     | 2023 Salary ($)  | 2025 Salary ($)   |");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+            Console.WriteLine("| John Doe          | 50,000           | 60,000            |");
+            Console.WriteLine("| Jane Smith        | 55,000           | 65,000            |");
+            Console.WriteLine("| Alice Johnson     | 45,000           | 55,000            |");
+            Console.WriteLine("| Bob Brown         | 60,000           | 70,000            |");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+
+            Console.WriteLine("\nDepartment-wise Payroll Analysis:");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+            Console.WriteLine("| Department        | 2023 Payroll ($) | 2025 Payroll ($)  |");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+            Console.WriteLine("| IT                | 500,000          | 600,000           |");
+            Console.WriteLine("| HR                | 300,000          | 350,000           |");
+            Console.WriteLine("| Finance           | 400,000          | 450,000           |");
+            Console.WriteLine("| Marketing         | 350,000          | 400,000           |");
+            Console.WriteLine("+-------------------+-------------------+-------------------+");
+
+            Console.WriteLine("\nPress Enter to return.");
+            Console.ReadLine();
+        }
+
+        // This method manages leave requests, allowing HR to approve or reject them
         private void ViewEmployees()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("+============= EMPLOYEE LIST =============+");
             Console.ResetColor();
-
+            // Show the list of employees
             foreach (var emp in _employees)
             {
                 Console.WriteLine($"\n[{emp.EmployeeId:D4}] {emp.Name}");
@@ -446,7 +537,7 @@ namespace PayrollSystem.Modules
                 Console.ReadLine();
             }
         }
-
+        // This method manages leave requests, allowing HR to approve or reject them
         private void CalculatePayroll()
         {
             Console.Clear();
@@ -678,7 +769,7 @@ namespace PayrollSystem.Modules
                 .ToList();
 
             int daysOnLeave = leaveRequests.Sum(r => r.DaysRequested);
-
+            // Display leave information
             Console.WriteLine($"\nTotal Days on Leave this month: {daysOnLeave}");
             if (leaveRequests.Any())
             {
