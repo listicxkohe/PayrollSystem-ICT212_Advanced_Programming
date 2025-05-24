@@ -1,4 +1,2 @@
-Kohe,admin,Admin
-Gasty,admin,Admin
-Alice,1234,HR
-Bob,5678,Employee
+kohe,dmplq,Admin
+gasty,dmplq,Admin

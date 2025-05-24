@@ -1,15 +1,16 @@
-﻿// Services/FileHandler.cs
-
-// This class is used to save and load data to/from files.
-// Think of it like the memory card of your program — it keeps data even after you close the app.
-
-using PayrollSystem.Models; // import the data models like Employee, User etc.
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using PayrollSystem.Models;
+using PayrollSystem.Services; // Import the Encryption service
 
 namespace PayrollSystem.Services
 {
     public class FileHandler
     {
         private readonly string dataFolder = "data"; // this is the folder where we store all our text files
+        private readonly string logFilePath = "log.txt"; // path for the log file
         private List<Employee> _employees; // to store employees for history lookup
         private List<User> _users;
         private List<AttendanceRecord> _attendance;
@@ -34,7 +35,13 @@ namespace PayrollSystem.Services
                 Directory.CreateDirectory(dataFolder); // if it's missing, we create it
         }
 
-        // Loads all users from the text file
+        // Logs debug information to the log file
+        private void LogDebug(string message)
+        {
+            File.AppendAllText(logFilePath, $"{DateTime.Now}: {message}{Environment.NewLine}");
+        }
+
+        // Loads all users from the text file and decrypts their passwords
         public List<User> LoadUsers()
         {
             EnsureDirectory();
@@ -49,8 +56,18 @@ namespace PayrollSystem.Services
                     var parts = line.Split(','); // split using comma
                     if (parts.Length >= 3)
                     {
-                        int employeeId = parts.Length > 3 ? int.Parse(parts[3]) : -1;
-                        users.Add(new User(parts[0], parts[1], parts[2], employeeId)); // create a user and add it to the list
+                        var username = parts[0];
+                        var encryptedPassword = parts[1];
+                        var role = parts[2];
+                        var employeeId = parts.Length > 3 ? int.Parse(parts[3]) : -1;
+
+                        // Decrypt the password before adding the user
+                        var decryptedPassword = Encryption.Decrypt(encryptedPassword);
+
+                        // Log decrypted user data to the log file
+                        LogDebug($"Username: {username}, Decrypted Password: {decryptedPassword}, Role: {role}");
+
+                        users.Add(new User(username, decryptedPassword, role, employeeId));
                     }
                 }
             }
@@ -65,12 +82,17 @@ namespace PayrollSystem.Services
             return users; // return the full list
         }
 
-        // Saves all users to the file
+        // Saves all users to the file with encrypted passwords
         public void SaveUsers(List<User> users)
         {
             EnsureDirectory();
             File.WriteAllLines(Path.Combine(dataFolder, "users.txt"),
-                users.Select(u => $"{u.Username},{u.Password},{u.Role},{u.EmployeeId}"));
+                users.Select(u =>
+                {
+                    // Encrypt the password before saving
+                    var encryptedPassword = Encryption.Encrypt(u.Password);
+                    return $"{u.Username},{encryptedPassword},{u.Role},{u.EmployeeId}";
+                }));
         }
 
         // Loads employees from the file
@@ -117,7 +139,7 @@ namespace PayrollSystem.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading employees: {ex.Message}");
+                LogDebug($"Error loading employees: {ex.Message}");
             }
 
             return _employees;
@@ -148,7 +170,7 @@ namespace PayrollSystem.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving employees: {ex.Message}");
+                LogDebug($"Error saving employees: {ex.Message}");
             }
         }
 
