@@ -1,3 +1,4 @@
+
 # SmartHR Console
 
 ```
@@ -18,9 +19,7 @@
 
 ## Overview
 
-The **SmartHR Console** is a C# console application designed for managing employee records, attendance, payroll calculations, leave requests, and administrative control. It is a menu-driven program that allows role-based access to different modules (Admin, HR, Employee), all operated via a clean, structured console interface.
-
-This project was developed as part of the **ICT212 – Advanced Programming** assignment, with a focus on modular code design, data persistence, and user-friendly console UI formatting.
+The **SmartHR Console** is a C# console application for managing employee records, attendance, payroll calculations, leave requests, and administrative control. It features a menu-driven, role-based interface (Admin, HR, Employee) with modular code design, persistent data storage, and a user-friendly console UI.
 
 ---
 
@@ -38,6 +37,7 @@ This project was developed as part of the **ICT212 – Advanced Programming** as
   * Calculate payroll with bonuses and deductions
   * Manage and approve/reject leave requests
   * View employee history
+  * Analytics & Reports (hardcoded department/employee analytics)
 
 * **Employee Panel**
 
@@ -46,63 +46,79 @@ This project was developed as part of the **ICT212 – Advanced Programming** as
   * View leave status
   * View personal employee history
 
+* **Data Security**
+
+  * User passwords are stored encrypted in the data files (`Services/Encryption.cs`)
+
 * **Data Storage**
 
-  * Persistent flat file storage using `.txt` files for users, employees, leave, history, and attendance.
+  * Persistent flat file storage using `.txt` files for users, employees, leave, history, and attendance
 
 ---
 
 ## File Structure
 
 ```
-EmployeePayrollSystem/
+PayrollSystem-ICT212_Advanced_Programming/
 │
-├── Program.cs                 // Entry point
+├── Program.cs                      // Entry point
+│
+├── Docs/
+│   └── documentation.md
 ├── Core/
-│   └── PayrollApp.cs         // Main controller logic
+│   └── PayrollApp.cs               // Main controller logic
 │
 ├── Modules/
-│   ├── AdminModule.cs        // Admin menu & logic
-│   ├── HRModule.cs           // HR menu & logic
-│   ├── EmployeeModule.cs     // Employee menu & logic
-│   └── LoginModule.cs        // Login screen & validation
+│   ├── AdminModule.cs              // Admin menu & logic
+│   ├── EmployeeModule.cs           // Employee menu & logic
+│   ├── HRModule.cs                 // HR menu & logic (includes analytics/reports)
+│   └── LoginModule.cs              // Login screen & validation
 │
 ├── Models/
-│   ├── User.cs               // User login model
-│   ├── Employee.cs           // Employee data model
-│   ├── AttendanceRecord.cs   // Attendance data model
-│   ├── LeaveRequest.cs       // Leave application model
-│   └── EmployeeHistory.cs    // Change log/history model
+│   ├── AttendanceRecord.cs         // Attendance data model
+│   ├── Employee.cs                 // Employee data model
+│   ├── EmployeeHistory.cs          // Change log/history model
+│   ├── LeaveRequest.cs             // Leave application model
+│   ├── PayrollRecord.cs            // Payroll record model
+│   └── User.cs                     // User login model
 │
 ├── Services/
-│   └── FileHandler.cs        // Read/write operations to .txt files
+│   ├── FileHandler.cs              // Read/write operations to .txt files (with encryption)
+│   └── Encryption.cs               // Handles password encryption/decryption
 │
 ├── data/
-│   ├── users.txt             // User accounts
-│   ├── employees.txt         // Employee records
-│   ├── attendance.txt        // Attendance logs
-│   ├── leaves.txt            // Leave requests
-│   └── employee_histories.txt // Historical changes
+│   ├── users.txt                   // User accounts (passwords encrypted)
+│   ├── employees.txt               // Employee records
+│   ├── attendance.txt              // Attendance logs
+│   ├── leaves.txt                  // Leave requests
+│   └── employee_histories.txt      // Historical changes
 ```
 
 ---
 
 ## Technologies Used
 
-* **Language:** C# (.NET 6 or later recommended)
+* **Language:** C# (.NET 8 recommended)
 * **Platform:** Console-based application (Windows)
 * **Data Storage:** Local flat files (`.txt` files, parsed line-by-line)
-* **Tools:** Visual Studio / Visual Studio Code
+* **Security:** Password encryption for user accounts (`Services/Encryption.cs`)
+* **Tools:** Visual Studio 2022 / Visual Studio Code
 
 ---
 
 ## How to Run
 
-1. Clone or download the repository.
-2. Open the project in Visual Studio.
-3. Ensure the `/data/` folder exists in the root with all necessary `.txt` files.
+1. Clone or download the repository:
+
+   ```
+   https://github.com/listicxkohe/PayrollSystem-ICT212_Advanced_Programming
+   ```
+2. Open the solution in Visual Studio 2022.
+3. Make sure the `/data/` folder exists in the root with all required `.txt` files.
+
+   * Sample files are included (passwords are encrypted by default).
 4. Build and run the project.
-5. Use one of the sample admin accounts to begin:
+5. Log in using the sample admin account:
 
    ```
    Username: Kohe
@@ -113,12 +129,22 @@ EmployeePayrollSystem/
 
 ## Notes
 
-* The UI has been formatted for a clear console layout with headers, boxes, and color-coded sections to simulate a desktop-style experience.
-* Password input is masked with `*` in the login screen for realism.
-* Console resizing is optional and not enforced for compatibility.
+* The UI uses headers, boxes, and color-coded sections for a clear console experience.
+* Password input is masked with `*` on the login screen.
+* Analytics and payroll reports are included in the HR panel with hardcoded sample data.
+* Console window resizing is not enforced and is optional for display compatibility.
 
 ---
 
 ## License
 
-This project was developed for academic purposes. Reuse or distribution should include proper attribution.
+This project was developed for academic purposes. 
+
+---
+
+## GitHub Repository
+
+[https://github.com/listicxkohe/PayrollSystem-ICT212\_Advanced\_Programming](https://github.com/listicxkohe/PayrollSystem-ICT212_Advanced_Programming)
+
+---
+
