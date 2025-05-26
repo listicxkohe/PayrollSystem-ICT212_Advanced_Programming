@@ -63,6 +63,8 @@ PayrollSystem-ICT212_Advanced_Programming/
 │
 ├── Program.cs                      // Entry point
 │
+├── Docs/
+│   └── documentation.md
 ├── Core/
 │   └── PayrollApp.cs               // Main controller logic
 │
