@@ -1,5 +1,12 @@
 ﻿
 # SmartHR Console
+current passwords:
+kohe : admin (admin)
+gasty : admin (admin)
+bob : bob (employee)
+Alice : alice (hr)
+
+caear cipher shift 29 a --> d
 
 ## 📘 User Manual & Documentation
 
